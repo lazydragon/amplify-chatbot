@@ -2,6 +2,16 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+// config amplify
+import Amplify, {Auth}  from "aws-amplify";
+import awsmobile from './aws-exports';
+
+// include amplify UI components
+import { withAuthenticator } from 'aws-amplify-react';
+
+// config amplify
+Amplify.configure(awsmobile)
+
 class App extends Component {
   render() {
     return (
@@ -18,4 +28,6 @@ class App extends Component {
   }
 }
 
-export default App;
+
+// app with amplify auth
+export default withAuthenticator(App);
