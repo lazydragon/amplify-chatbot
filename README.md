@@ -72,33 +72,8 @@ amplify add api
 # 12. skip local lambda editing
 # 13. restrict api access to authenticated user only with read access
 # 14. no for adding more path
-```
 
-## config chatbot function
-```
-# config lambda
-# copy src/functions/chatbot.py to amplify/backend/function/{your_function_name}/src/chatbot.py
-# edit chatbot-cloudformation-template.json
-
-...
-	"Resources": {
-		"LambdaFunction": {
-			"Type": "AWS::Lambda::Function",
-			"Properties": {
-				"Handler": "chatbot.lambda_handler",
-				"FunctionName": "chatbot",
-				"Role": {
-					"Fn::GetAtt": [
-						"LambdaExecutionRole",
-						"Arn"
-					]
-				},
-				"Runtime": "python2.7",
-				"Timeout": "25"
-			}
-		},
-...
-
+# copy src/functions/index.js to the amplify/backend/function/{your_function_name}/src/index.js
 ```
 
 ## deploy your project on AWS
@@ -106,13 +81,18 @@ amplify add api
 amplify publish
 ```
 
-## chatbot configuration
+## chatbot configuration (manual)
 ### access
 For your user to have access to the chatbot, we will use IAM roles issued by your cognito authentication.
 To enable the role access to chatbot:
 - go to AWS console IAM, 
 - find the Auth role (not the unauth role) you created, 
 - add AmazonLexRunBotsOnly policy to the role
+
+### config chatbot function
+- create a lambda on AWS console (python2.7)
+- copy codes in src/functions/chatbot.py into lambda function
+- give lambda function access to dynamodb(reservations)
 
 ### add lambda hook
 - config your car & hotel intents, hook the chatbot lambda function you just created to validation & fullfillment
