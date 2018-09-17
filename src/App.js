@@ -215,4 +215,5 @@ class App extends Component {
 
 
 // app with amplify auth
-export default withAuthenticator(App);
+//export default App 
+export default withAuthenticator(App)
